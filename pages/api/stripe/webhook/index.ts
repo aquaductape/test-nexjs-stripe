@@ -22,9 +22,6 @@ const cors = Cors({
   allowMethods: ["POST", "HEAD"],
 });
 
-// TODO: prevents duplicate transaction rows. Find out how to prevent that in supabase
-const cache = {} as { [key: string]: boolean };
-
 const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const requestBuffer = await buffer(req);
@@ -32,7 +29,6 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const stripeSignatureHeaders = req.headers["stripe-signature"];
 
     let event: Stripe.Event;
-    console.log("WEBHOOOOK!!!!!!!!!!", req.headers, webhookSecret);
 
     try {
       event = stripe.webhooks.constructEvent(
@@ -41,7 +37,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         webhookSecret
       );
     } catch (err) {
-      console.log("webhook error");
+      console.log(err.message);
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
