@@ -6,7 +6,7 @@
     "dev": "next dev",
     "dev:ngrok": "cp .env.local .env.local.orig && cp .env.ngrok .env.local && next dev",
     "ngrok": "ngrok http 3000",
-    "ngrok-subdomain": "ngrok http -subdomain=402-dimond-test 3000",
+    "ngrok-subdomain": "ngrok http -subdomain=stripe-test 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
